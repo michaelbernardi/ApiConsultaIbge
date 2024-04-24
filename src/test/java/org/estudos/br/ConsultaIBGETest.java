@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ConsultaIBGETest {
     private static final String ESTADOS_API_URL = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/";
+    private static final String DISTRITOS_API_URL = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/";
 
 
     @Test
@@ -27,6 +28,25 @@ public class ConsultaIBGETest {
 
         // Verifica se o status code é 200 (OK)
         HttpURLConnection connection = (HttpURLConnection) new URL(ESTADOS_API_URL + uf).openConnection();
+        int statusCode = connection.getResponseCode();
+        assertEquals(200, statusCode, "O status code da resposta da API deve ser 200 (OK)");
+    }
+
+    @Test
+    @DisplayName("Teste para consulta única de um distrito")
+    public void testConsultarDistrito() throws IOException {
+        // Arrange
+        String id = "12"; // Define o distrito a ser consultado
+
+        // Act
+        String resposta = ConsultaIBGE.consultarEstado(id); // Chama o método a ser testado
+
+        // Assert
+        // Verifica se a resposta não está vazia
+        assert !resposta.isEmpty();
+
+        // Verifica se o status code é 200 (OK)
+        HttpURLConnection connection = (HttpURLConnection) new URL(DISTRITOS_API_URL + id).openConnection();
         int statusCode = connection.getResponseCode();
         assertEquals(200, statusCode, "O status code da resposta da API deve ser 200 (OK)");
     }

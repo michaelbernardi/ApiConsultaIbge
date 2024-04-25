@@ -25,6 +25,10 @@ public class ConsultaIBGE {
      * @throws IOException Se houver algum erro de conexão ou leitura.
      */
     public static String consultarEstado(String uf) throws IOException {
+        // Verifica se a sigla do estado é válida
+        if (uf.length() != 2) {
+            throw new IOException("Estado inválido: " + uf);
+        }
         // Monta a URL completa para consulta do estado específico
         URL url = new URL(ESTADOS_API_URL + uf);
 
@@ -32,6 +36,12 @@ public class ConsultaIBGE {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // Define o método da requisição como GET
         connection.setRequestMethod("GET");
+
+        // Verifica o status code da resposta
+        int statusCode = connection.getResponseCode();
+        if (statusCode != HttpURLConnection.HTTP_OK) {
+            throw new IOException("Falha na consulta do estado. Código de status: " + statusCode);
+        }
 
         // Prepara para ler a resposta da conexão
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -47,6 +57,7 @@ public class ConsultaIBGE {
         // Retorna a resposta da API como uma string
         return response.toString();
     }
+
 
     /**
      * Método para consultar informações de um distrito específico.
@@ -56,6 +67,11 @@ public class ConsultaIBGE {
      * @throws IOException Se houver algum erro de conexão ou leitura.
      */
     public static String consultarDistrito(int id) throws IOException {
+        // Verifica se o ID do distrito é válido
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID de distrito inválido: " + id);
+        }
+
         // Monta a URL completa para consulta do distrito específico
         URL url = new URL(DISTRITOS_API_URL + id);
 
@@ -63,6 +79,12 @@ public class ConsultaIBGE {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // Define o método da requisição como GET
         connection.setRequestMethod("GET");
+
+        // Verifica o status code da resposta
+        int statusCode = connection.getResponseCode();
+        if (statusCode != HttpURLConnection.HTTP_OK) {
+            throw new IOException("Falha na consulta do distrito. Código de status: " + statusCode);
+        }
 
         // Prepara para ler a resposta da conexão
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -78,4 +100,5 @@ public class ConsultaIBGE {
         // Retorna a resposta da API como uma string
         return response.toString();
     }
+
 }

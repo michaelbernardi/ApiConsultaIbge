@@ -99,3 +99,7 @@ public class ExemploUso {
 ## Postman
 
 Na pasta 'Postman' na raiz do projeto, você encontrará uma collection com todas as chamadas da API. Essa collection pode ser importada no Postman para facilitar o teste das chamadas.
+
+## Análise no SonarCloud
+
+Para visualizar a análise de qualidade do código do projeto no SonarCloud, clique <a href="https://sonarcloud.io/summary/overall?id=michaelbernardi_ApiConsultaIbge" target="_blank">aqui</a>.

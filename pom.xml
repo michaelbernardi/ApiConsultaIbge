@@ -19,6 +19,7 @@
   </properties>
 
   <dependencies>
+    <!-- Dependência para JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -31,12 +32,14 @@
       <version>5.7.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- Dependência para manipulação de JSON -->
     <!-- https://mvnrepository.com/artifact/org.json/json -->
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20240303</version>
     </dependency>
+    <!-- Dependência para Mockito -->
     <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
     <dependency>
       <groupId>org.mockito</groupId>
@@ -44,6 +47,15 @@
       <version>5.11.0</version>
       <scope>test</scope>
     </dependency>
+    <!-- Dependência para JaCoCo -->
+    <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+    <dependency>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.12</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>
@@ -53,7 +65,26 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M5</version>
       </plugin>
-
+      <!--plugin para JaCoCo-->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       </plugins>
   </build>
 </project>
